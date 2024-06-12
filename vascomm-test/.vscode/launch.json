@@ -1,0 +1,74 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-CompanyserviceApplication<companyservice>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "com.beever.companyservice.CompanyserviceApplication",
+            "projectName": "companyservice",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-HolidayserviceApplication<holidayservice>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "com.beever.holidayservice.HolidayserviceApplication",
+            "projectName": "holidayservice",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-HolidayserviceApplication<constantservice>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "com.beever.constantservice.HolidayserviceApplication",
+            "projectName": "constantservice",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-ConstantserviceApplication<constantservice>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "com.beever.constantservice.ConstantserviceApplication",
+            "projectName": "constantservice",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-ConstantserviceApplication<constantservice>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.beever.vascommtest.ConstantserviceApplication",
+            "projectName": "constantservice",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-ConstantserviceApplication<vascommtest>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.vascomm.vascommtest.ConstantserviceApplication",
+            "projectName": "vascommtest",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-VascommserviceApplication<vascommtest>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.vascomm.vascommtest.VascommserviceApplication",
+            "projectName": "vascommtest",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
