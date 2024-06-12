@@ -1,41 +1,35 @@
 package com.vascomm.vascommtest.controller;
 
 import java.net.URI;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.vascomm.vascommtest.model.Mst_Employee;
-import com.vascomm.vascommtest.model.ResponseMdl;
-import com.vascomm.vascommtest.model.ResponseMdlPagination;
-import com.vascomm.vascommtest.service.EmployeeService;
+
+import com.vascomm.vascommtest.model.Mst_Product;
+import com.vascomm.vascommtest.model.ResponseMdlProduct;
+import com.vascomm.vascommtest.model.ResponseMdlProductPagination;
+import com.vascomm.vascommtest.service.ProductService;
 
 import lombok.extern.log4j.Log4j2;
 
 @RestController
 @Log4j2
-@RequestMapping("/employee")
-public class EmployeeController {
+@RequestMapping("/product")
+public class ProductController {
 
     @Autowired
-    EmployeeService service;
+    ProductService service;
 
     @RequestMapping("/")
     public String index() {
@@ -50,14 +44,13 @@ public class EmployeeController {
 
     // Create
     @PostMapping("")
-    public ResponseEntity<ResponseMdl> createEmployee(@Valid @RequestBody Mst_Employee emp) {
-        ResponseMdl response = new ResponseMdl();
-        boolean isId = emp.getId() == null;
+    public ResponseEntity<ResponseMdlProduct> createProduct(@Valid @RequestBody Mst_Product emp) {
+        ResponseMdlProduct response = new ResponseMdlProduct();
         try {
-            if (emp.getId() == null) emp.setId(service.employeeNextVal());
-            Mst_Employee result = service.save(emp);
+            boolean isId = emp.getId() == null;
+            Mst_Product result = service.save(emp);
             response.setCode(isId ? "201" : "200");
-            response.setMessage(ResponseMdl.SUCCESS);
+            response.setMessage(ResponseMdlProduct.SUCCESS);
             response.setData(result);
             // Build the URI for the newly created resource
             URI location = ServletUriComponentsBuilder
@@ -74,49 +67,49 @@ public class EmployeeController {
     }
 
     @GetMapping("")
-    public ResponseEntity<ResponseMdl> getEmployeeByCode(@RequestParam String employeeCode) {
-        Mst_Employee employee = service.findByEmployeeCode(employeeCode);
-        ResponseMdl response = new ResponseMdl();
+    public ResponseEntity<ResponseMdlProduct> getBySku(@RequestParam String sku) {
+        Mst_Product data = service.findBySku(sku);
+        ResponseMdlProduct response = new ResponseMdlProduct();
         
-        if (employee != null) {
+        if (data != null) {
             response.setCode("200");
-            response.setMessage(ResponseMdl.SUCCESS);
-            response.setData(employee);
+            response.setMessage(ResponseMdlProduct.SUCCESS);
+            response.setData(data);
             return ResponseEntity.ok(response);
         } else {
             response.setCode("404");
-            response.setMessage("Employee not found");
+            response.setMessage("Product not found");
             return ResponseEntity.status(404).body(response);
         }
     }
 
     @GetMapping("/all")
-    public ResponseEntity<ResponseMdlPagination> getAllEmployees(
+    public ResponseEntity<ResponseMdlProductPagination> getAllProducts(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size) {
-        Page<Mst_Employee> employees = service.findAllEmployeesWithPagination(page, size);
-        ResponseMdlPagination response = new ResponseMdlPagination();
+        Page<Mst_Product> datas = service.pagination(page, size);
+        ResponseMdlProductPagination response = new ResponseMdlProductPagination();
 
         response.setCode("200");
-        response.setMessage(ResponseMdl.SUCCESS);
-        response.setData(employees);
+        response.setMessage(ResponseMdlProduct.SUCCESS);
+        response.setData(datas);
 
         return ResponseEntity.ok(response);
     }
 
     @DeleteMapping("")
-    public ResponseEntity<ResponseMdl> deleteEmployeeByCode(@RequestParam String employeeCode) {
-        Mst_Employee employee = service.softDeleteEmployee(employeeCode);
-        ResponseMdl response = new ResponseMdl();
+    public ResponseEntity<ResponseMdlProduct> deleteEmployeeByCode(@RequestParam String sku) {
+        Mst_Product data = service.softDelete(sku);
+        ResponseMdlProduct response = new ResponseMdlProduct();
         
-        if (employee != null) {
+        if (data != null) {
             response.setCode("200");
-            response.setMessage(ResponseMdl.SUCCESS);
-            response.setData(employee);
+            response.setMessage(ResponseMdlProduct.SUCCESS);
+            response.setData(data);
             return ResponseEntity.ok(response);
         } else {
             response.setCode("404");
-            response.setMessage("Employee not found");
+            response.setMessage("Product not found");
             return ResponseEntity.status(404).body(response);
         }
     }

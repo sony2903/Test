@@ -16,7 +16,7 @@ public class BaseStandartModel {
 	protected Integer insert_user;
 	protected Date update_date;
 	protected Integer update_user;
-	protected Integer delete_flag;
+	protected Integer delete_flag = 0;
 	protected Date delete_date;
 	protected Integer delete_user;
 	protected Integer active_flg;
